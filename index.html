@@ -74,6 +74,7 @@
       </select>
       <br />
       <button type="button" onclick="convert()">Convert</button>
+      <button type="button" onclick="copyOutput()">Copy</button>
       <br />
       <label for="output-string">Output String:</label>
       <input type="text" id="output-string" name="output-string" readonly />
@@ -110,6 +111,18 @@
 
         outputString += fileExtension; // Add the file extension to the output string
         document.getElementById("output-string").value = outputString;
+      }
+
+      function copyOutput() {
+        const outputString = document.getElementById("output-string").value;
+        navigator.clipboard.writeText(outputString).then(
+          function () {
+            alert(`"${outputString}" has been copied to the clipboard!`);
+          },
+          function () {
+            alert(`Failed to copy "${outputString}".`);
+          }
+        );
       }
 
       function convertToCamelCase(str) {
