@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Naming Convention Converter</title>
+  </head>
+  <body>
+    <div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>Recommended Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>JavaScript</td>
+            <td>camelCase</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td>snake_case</td>
+          </tr>
+          <tr>
+            <td>Java</td>
+            <td>camelCase</td>
+          </tr>
+          <tr>
+            <td>C#</td>
+            <td>PascalCase</td>
+          </tr>
+          <tr>
+            <td>PHP</td>
+            <td>camelCase / snake_case</td>
+          </tr>
+          <tr>
+            <td>Ruby</td>
+            <td>snake_case</td>
+          </tr>
+          <tr>
+            <td>Go</td>
+            <td>camelCase</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <form>
+      <label for="input-string">Input String:</label>
+      <input type="text" id="input-string" name="input-string" />
+      <br />
+      <label for="naming-convention">Naming Convention:</label>
+      <select id="naming-convention" name="naming-convention">
+        <option value="camelCase">Camel Case</option>
+        <option value="pascalCase">Pascal Case</option>
+        <option value="snakeCase">Snake Case</option>
+        <option value="kebabCase">Kebab Case</option>
+        <option value="upperUnderscore">Upper Underscore</option>
+        <option value="hungarianNotation">Hungarian Notation</option>
+      </select>
+      <br />
+      <label for="file-extension">File Extension:</label>
+      <select id="file-extension" name="file-extension">
+        <option value="">None</option>
+        <option value=".js">.js</option>
+        <option value=".jsx">.jsx</option>
+        <option value=".ts">.ts</option>
+        <option value=".tsx">.tsx</option>
+        <option value=".module.css">.module.css</option>
+        <option value=".rb">.rb</option>
+        <option value=".py">.py</option>
+        <option value=".css">.css</option>
+        <option value=".html">.html</option>
+        <!-- Add more file extensions as needed -->
+      </select>
+      <br />
+      <button type="button" onclick="convert()">Convert</button>
+      <br />
+      <label for="output-string">Output String:</label>
+      <input type="text" id="output-string" name="output-string" readonly />
+    </form>
+
+    <script>
+      function convert() {
+        const inputString = document.getElementById("input-string").value;
+        const namingConvention =
+          document.getElementById("naming-convention").value;
+        const fileExtension = document.getElementById("file-extension").value;
+        let outputString;
+
+        switch (namingConvention) {
+          case "camelCase":
+            outputString = convertToCamelCase(inputString);
+            break;
+          case "pascalCase":
+            outputString = convertToPascalCase(inputString);
+            break;
+          case "snakeCase":
+            outputString = convertToSnakeCase(inputString);
+            break;
+          case "kebabCase":
+            outputString = convertToKebabCase(inputString);
+            break;
+          case "upperUnderscore":
+            outputString = convertToUpperUnderscore(inputString);
+            break;
+          case "hungarianNotation":
+            outputString = convertToHungarianNotation(inputString);
+            break;
+        }
+
+        outputString += fileExtension; // Add the file extension to the output string
+        document.getElementById("output-string").value = outputString;
+      }
+
+      function convertToCamelCase(str) {
+        const words = str.split(" ");
+        const capitalizedWords = words
+          .slice(1)
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+        const variableName = words[0].toLowerCase() + capitalizedWords.join("");
+        return variableName;
+      }
+
+      function convertToPascalCase(str) {
+        const words = str.split(" ");
+        const capitalizedWords = words.map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+        );
+        const variableName = capitalizedWords.join("");
+        return variableName;
+      }
+
+      function convertToSnakeCase(str) {
+        const variableName = str.replace(/\s+/g, "_").toLowerCase();
+        return variableName;
+      }
+
+      function convertToKebabCase(str) {
+        const variableName = str.replace(/\s+/g, "-").toLowerCase();
+        return variableName;
+      }
+
+      function convertToUpperUnderscore(str) {
+        const variableName = str.replace(/\s+/g, "_").toUpperCase();
+        return variableName;
+      }
+
+      function convertToHungarianNotation(str) {
+        const words = str.split(" ");
+        const prefix = words[0].charAt(0).toLowerCase() + "_";
+        const suffix = words
+          .slice(1)
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join("");
+        const variableName = prefix + suffix;
+        return variableName;
+      }
+    </script>
+  </body>
+</html>
